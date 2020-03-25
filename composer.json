@@ -1,10 +1,11 @@
 {
-    "name": "laravel/laravel",
+    "name": "cornerstone/cornerstone",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "Scaffold based on the Laravel Framework.",
     "keywords": [
         "framework",
-        "laravel"
+        "laravel",
+        "scaffold"
     ],
     "license": "MIT",
     "require": {
