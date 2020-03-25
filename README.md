@@ -8,6 +8,7 @@ Cornerstone is a scaffold based on the Laravel Framework.
     -   [brexis/laravel-workflow](https://github.com/brexis/laravel-workflow)
     -   [caouecs/laravel-lang](https://github.com/caouecs/laravel-lang)
     -   [guzzlehttp/guzzle](https://github.com/guzzle/guzzle)
+    -   [laravel/telescope](https://laravel.com/docs/6.x/telescope)
     -   [predis/predis](https://github.com/nrk/predis)
     -   [silber/bouncer](https://github.com/JosephSilber/bouncer)
 
