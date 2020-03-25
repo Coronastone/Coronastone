@@ -16,6 +16,7 @@
         "guzzlehttp/guzzle": "^6.5",
         "laravel/framework": "^6.2",
         "laravel/passport": "^8.4",
+        "laravel/socialite": "^4.3",
         "laravel/tinker": "^2.0",
         "predis/predis": "^1.1",
         "silber/bouncer": "^1.0"

@@ -9,6 +9,7 @@ Cornerstone is a scaffold based on the Laravel Framework.
     -   [caouecs/laravel-lang](https://github.com/caouecs/laravel-lang/tree/5.0.0)
     -   [guzzlehttp/guzzle](http://docs.guzzlephp.org/en/6.5/overview.html)
     -   [laravel/passport](https://laravel.com/docs/6.x/passport)
+    -   [laravel/socialite](https://laravel.com/docs/6.x/socialite)
     -   [laravel/telescope](https://laravel.com/docs/6.x/telescope)
     -   [predis/predis](https://github.com/nrk/predis/tree/v1.1)
     -   [silber/bouncer](https://github.com/JosephSilber/bouncer/tree/v1.0.0-rc.7)
@@ -22,6 +23,10 @@ Create the encryption keys and sample clients:
 ```bash
 php artisan passport:install
 ```
+
+#### Socialite
+
+For more providers, see [Socialite Providers](https://socialiteproviders.netlify.com).
 
 #### Telescope
 
