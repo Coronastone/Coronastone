@@ -13,8 +13,9 @@
         "brexis/laravel-workflow": "^1.3",
         "caouecs/laravel-lang": "~5.0",
         "fideloper/proxy": "^4.0",
-        "guzzlehttp/guzzle": "^7.0",
+        "guzzlehttp/guzzle": "^6.5",
         "laravel/framework": "^6.2",
+        "laravel/passport": "^8.4",
         "laravel/tinker": "^2.0",
         "predis/predis": "^1.1",
         "silber/bouncer": "^1.0"
