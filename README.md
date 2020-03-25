@@ -23,6 +23,12 @@ Create the encryption keys and sample clients:
 php artisan passport:install
 ```
 
+#### Telescope
+
+On local (dev) environment, `laravel/telescope` should be installed via `composer install` or `composer update`.
+
+On remote (production) environment, `laravel/telescope` should be ignored via `composer install --no-dev` or `composer update --no-dev`.
+
 #### Workflow
 
 Publish the configuration:
