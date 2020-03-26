@@ -69,6 +69,7 @@
                 <div class="top-right links">
                     @auth
                         <a href="{{ url('/home') }}">_e('Home')</a>
+                        <a href="{{ url('/telescope') }}">_e('Telescope')</a>
                     @else
                         <a href="{{ route('login') }}">_e('Login')</a>
 
