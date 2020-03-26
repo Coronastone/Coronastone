@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Cornerstone</title>
+        <title>Coronastone</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -82,13 +82,13 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Cornerstone
+                    Coronastone
                 </div>
 
                 <div class="links">
                     <a href="https://laravel.com/docs/6.x">_e('Laravel Docs')</a>
                     <a href="https://laravel.com/api/6.x">_e('Laravel Api')</a>
-                    <a href="https://github.com/JoyMoe/Cornerstone">_e('GitHub')</a>
+                    <a href="https://github.com/JoyMoe/Coronastone">_e('GitHub')</a>
                 </div>
             </div>
         </div>

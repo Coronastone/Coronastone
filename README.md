@@ -1,6 +1,6 @@
-## Cornerstone
+## Coronastone
 
-Cornerstone is a scaffold based on the Laravel Framework.
+Coronastone is a scaffold based on the Laravel Framework.
 
 ### Features
 

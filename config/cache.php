@@ -98,6 +98,6 @@ return [
     |
     */
 
-    'prefix' => env('CACHE_PREFIX', Str::slug(env('APP_NAME', 'cornerstone'), '_') . '_cache'),
+    'prefix' => env('CACHE_PREFIX', Str::slug(env('APP_NAME', 'coronastone'), '_') . '_cache'),
 
 ];
