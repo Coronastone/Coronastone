@@ -68,12 +68,12 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/home') }}">__('Home')</a>
+                        <a href="{{ url('/home') }}">_e('Home')</a>
                     @else
-                        <a href="{{ route('login') }}">__('Login')</a>
+                        <a href="{{ route('login') }}">_e('Login')</a>
 
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}">__('Register')</a>
+                            <a href="{{ route('register') }}">_e('Register')</a>
                         @endif
                     @endauth
                 </div>
@@ -85,9 +85,9 @@
                 </div>
 
                 <div class="links">
-                    <a href="https://laravel.com/docs/6.x">__('Laravel Docs')</a>
-                    <a href="https://laravel.com/api/6.x">__('Laravel Api')</a>
-                    <a href="https://github.com/JoyMoe/Cornerstone">__('GitHub')</a>
+                    <a href="https://laravel.com/docs/6.x">_e('Laravel Docs')</a>
+                    <a href="https://laravel.com/api/6.x">_e('Laravel Api')</a>
+                    <a href="https://github.com/JoyMoe/Cornerstone">_e('GitHub')</a>
                 </div>
             </div>
         </div>
