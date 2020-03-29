@@ -69,7 +69,12 @@
                 <div class="top-right links">
                     @auth
                         <a href="{{ url('/home') }}">_e('Home')</a>
-                        <a href="{{ url('/telescope') }}">_e('Telescope')</a>
+                        @can('view-dashboard')
+                            <a href="{{ url('/dashboard') }}">_e('Dashboard')</a>
+                        @endcan
+                        @can('view-telescope')
+                            <a href="{{ url('/telescope') }}">_e('Telescope')</a>
+                        @endcan
                     @else
                         <a href="{{ route('login') }}">_e('Login')</a>
 

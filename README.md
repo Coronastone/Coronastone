@@ -17,12 +17,20 @@ Coronastone is a scaffold based on the Laravel Framework.
 
 ### Remarks
 
+#### Bouncer
+
+Seed the default roles:
+
+```bash
+$ php artisan db:seed
+```
+
 #### Passport
 
 Create the encryption keys and sample clients:
 
 ```bash
-php artisan passport:install
+$ php artisan passport:install
 ```
 
 #### Socialite
@@ -40,7 +48,7 @@ On remote (production) environment, `laravel/telescope` should be ignored via `c
 Publish the configuration:
 
 ```bash
-php artisan vendor:publish --provider="Brexis\LaravelWorkflow\WorkflowServiceProvider"
+$ php artisan vendor:publish --provider="Brexis\LaravelWorkflow\WorkflowServiceProvider"
 ```
 
 ### License
