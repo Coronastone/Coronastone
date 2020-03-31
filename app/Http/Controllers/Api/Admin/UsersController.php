@@ -105,7 +105,7 @@ class UsersController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        if ($id === $request->user()->id) {
+        if ($id == $request->user()->id) {
             abort(400);
         }
 
