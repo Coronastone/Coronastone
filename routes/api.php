@@ -13,6 +13,10 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::namespace('Api')->group(function () {
+    Route::prefix('admin')
+        ->namespace('Admin')
+        ->group(function () {
+            Route::resource('users', 'UsersController')->except(['create', 'edit']);
+        });
 });

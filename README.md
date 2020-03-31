@@ -5,6 +5,8 @@ Coronastone is a scaffold based on the Laravel Framework.
 ### Features
 
 -   Login / Register
+-   Admin Dashboard
+    -   Users management
 -   Packages
     -   [brexis/laravel-workflow](https://github.com/brexis/laravel-workflow/tree/1.3.3)
     -   [caouecs/laravel-lang](https://github.com/caouecs/laravel-lang/tree/5.0.0)
