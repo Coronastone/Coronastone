@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
-use App\User;
+use App\Models\User;
 use Bouncer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -12,8 +12,6 @@ class UsersController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
-
         $this->middleware('can:read-users');
         $this->middleware('can:create-users')->only('store');
         $this->middleware('can:update-users')->only('update');

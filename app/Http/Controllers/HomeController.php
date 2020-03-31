@@ -13,7 +13,8 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except('index');
+        $this->middleware('auth')->only('home');
+        $this->middleware('auth:api')->only('guard');
     }
 
     /**
@@ -36,5 +37,10 @@ class HomeController extends Controller
     public function home()
     {
         return view('home');
+    }
+
+    public function guard()
+    {
+        //
     }
 }

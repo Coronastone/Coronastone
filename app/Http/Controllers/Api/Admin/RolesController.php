@@ -10,8 +10,6 @@ class RolesController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
-
         $this->middleware('can:read-roles');
         $this->middleware('can:create-roles')->only('store');
         $this->middleware('can:update-roles')->only('update');

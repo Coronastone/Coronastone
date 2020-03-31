@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -28,7 +28,13 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = ['name', 'username', 'password', 'email', 'phone_number'];
+    protected $fillable = [
+        'name',
+        'username',
+        'password',
+        'email',
+        'phone_number',
+    ];
 
     /**
      * The attributes that should be hidden for arrays.
