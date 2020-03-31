@@ -14,10 +14,10 @@ class RolesSeeder extends Seeder
     {
         Bouncer::role()->updateOrCreate(
             [
-                'name' => 'admin'
+                'name' => 'admin',
             ],
             [
-                'title' => __('Administrator')
+                'title' => __('Administrator'),
             ]
         );
 

@@ -30,9 +30,11 @@ class AppServiceProvider extends ServiceProvider
     {
         Blade::extend(function ($value) {
             return preg_replace_callback(
-                '/_e\((.*?)\)/x', function ($match) {
+                '/_e\((.*?)\)/x',
+                function ($match) {
                     return "<?php echo __($match[1]); ?>";
-                }, $value
+                },
+                $value
             );
         });
 
