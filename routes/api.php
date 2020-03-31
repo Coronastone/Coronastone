@@ -17,6 +17,8 @@ Route::namespace('Api')->group(function () {
     Route::prefix('admin')
         ->namespace('Admin')
         ->group(function () {
+            Route::get('abilities', 'RolesController@abilities');
+            Route::resource('roles', 'RolesController')->except(['create', 'edit']);
             Route::resource('users', 'UsersController')->except(['create', 'edit']);
         });
 });

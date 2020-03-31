@@ -17,7 +17,7 @@ class RolesSeeder extends Seeder
                 'name' => 'admin',
             ],
             [
-                'title' => __('Administrator'),
+                'title' => 'Administrator',
             ]
         );
 
