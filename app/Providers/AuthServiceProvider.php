@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Bouncer\Ability;
+use App\Models\Bouncer\Role;
 use App\Models\Passport\Client;
+use Bouncer;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Passport\Passport;
@@ -27,11 +30,12 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+        Bouncer::useAbilityModel(Ability::class);
+        Bouncer::useRoleModel(Role::class);
+
         Passport::routes();
-
-        Passport::useClientModel(Client::class);
-
         Passport::enableImplicitGrant();
+        Passport::useClientModel(Client::class);
 
         //
     }
