@@ -62,7 +62,7 @@ class RolesController extends Controller
             'title' => 'required|string|max:255',
         ]);
 
-        Bouncer::role()->create([
+        return Bouncer::role()->create([
             'name' => $request->input('name'),
             'title' => $request->input('title'),
         ]);
