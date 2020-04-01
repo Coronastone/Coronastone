@@ -88,9 +88,15 @@ class UsersController extends Controller
             $user->name = Hash::make($request->input('password'));
         }
 
+        $roles = collect($request->input('roles'));
+
         if ($request->has('roles')) {
             if ($id !== $request->user()->id) {
-                Bouncer::sync($user)->roles($request->input('roles'));
+                Bouncer::sync($user)->roles(
+                    $roles->map(function ($role) {
+                        return $role['name'];
+                    })
+                );
             }
         }
 
