@@ -23,11 +23,20 @@ class RolesController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->has('page')) {
-            return Bouncer::role()->paginate(20);
+        $model = Bouncer::role()->with('abilities');
+
+        $q = $request->get('q');
+        if ($q) {
+            $model = $model
+                ->where('name', 'like', "%$q%")
+                ->orWhere('title', 'like', "%$q%");
         }
 
-        return Bouncer::role()->get();
+        if ($request->has('page')) {
+            return $model->paginate(20);
+        }
+
+        return $model->get();
     }
 
     /**
