@@ -34,6 +34,10 @@ class UsersController extends Controller
                 ->orWhere('name', 'like', "%$q%");
         }
 
+        if ($request->get('trashed') == 'true') {
+            $model = $model->withTrashed();
+        }
+
         if ($request->has('page')) {
             return $model->paginate(20);
         }
@@ -124,8 +128,14 @@ class UsersController extends Controller
             abort(400);
         }
 
-        $user = User::findOrFail($id);
+        if ($request->input('destroy') == true) {
+            $user = User::withTrashed()->findOrFail($id);
 
-        $user->delete();
+            $user->forceDelete();
+        } else {
+            $user = User::findOrFail($id);
+
+            $user->delete();
+        }
     }
 }
