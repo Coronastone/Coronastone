@@ -27,14 +27,14 @@ class UsersController extends Controller
     {
         $model = User::with('roles');
 
-        $q = $request->get('q');
+        $q = $request->input('q');
         if ($q) {
             $model = $model
                 ->where('username', 'like', "%$q%")
                 ->orWhere('name', 'like', "%$q%");
         }
 
-        if ($request->get('trashed') == 'true') {
+        if ($request->input('trashed') == 'true') {
             $model = $model->withTrashed();
         }
 
@@ -101,9 +101,9 @@ class UsersController extends Controller
             $user->name = Hash::make($request->input('password'));
         }
 
-        $roles = collect($request->input('roles'));
-
         if ($request->has('roles')) {
+            $roles = collect($request->input('roles'));
+
             if ($id !== $request->user()->id) {
                 Bouncer::sync($user)->roles(
                     $roles->map(function ($role) {
