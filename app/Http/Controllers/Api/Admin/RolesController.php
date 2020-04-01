@@ -131,7 +131,7 @@ class RolesController extends Controller
     {
         $role = Bouncer::role()->findOrFail($id);
 
-        if ($role->roles->count() > 0) {
+        if ($role->users->count() > 0) {
             abort(400);
         }
 
