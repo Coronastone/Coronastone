@@ -25,11 +25,20 @@ class UsersController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->has('page')) {
-            return User::with('roles')->paginate(20);
+        $model = User::with('roles');
+
+        $q = $request->get('q');
+        if ($q) {
+            $model = $model
+                ->where('username', 'like', "%$q%")
+                ->orWhere('name', 'like', "%$q%");
         }
 
-        return User::with('roles')->get();
+        if ($request->has('page')) {
+            return $model->paginate(20);
+        }
+
+        return $model->get();
     }
 
     /**
