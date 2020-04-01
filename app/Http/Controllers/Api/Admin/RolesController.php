@@ -107,8 +107,14 @@ class RolesController extends Controller
         }
 
         if ($request->has('abilities')) {
+            $abilities = collect($request->input('abilities'));
+
             if ($role->name !== 'admin') {
-                Bouncer::sync($role)->abilities($request->input('abilities'));
+                Bouncer::sync($role)->abilities(
+                    $abilities->map(function ($ability) {
+                        return $ability['name'];
+                    })
+                );
             }
         }
 
