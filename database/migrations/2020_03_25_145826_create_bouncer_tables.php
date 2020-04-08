@@ -26,6 +26,7 @@ class CreateBouncerTables extends Migration
             $table->string('entity_type')->nullable();
             $table->boolean('only_owned')->default(false);
             $table->json('options')->nullable();
+            $table->boolean('built_in')->default(true);
             $table
                 ->integer('scope')
                 ->nullable()
@@ -50,7 +51,9 @@ class CreateBouncerTables extends Migration
             $table->unique(['name', 'scope'], 'roles_name_unique');
         });
 
-        Schema::create(Models::table('assigned_roles'), function (Blueprint $table) {
+        Schema::create(Models::table('assigned_roles'), function (
+            Blueprint $table
+        ) {
             $table->bigIncrements('id');
             $table
                 ->bigInteger('role_id')
@@ -68,7 +71,10 @@ class CreateBouncerTables extends Migration
                 ->nullable()
                 ->index();
 
-            $table->index(['entity_id', 'entity_type', 'scope'], 'assigned_roles_entity_index');
+            $table->index(
+                ['entity_id', 'entity_type', 'scope'],
+                'assigned_roles_entity_index'
+            );
 
             $table
                 ->foreign('role_id')
@@ -78,7 +84,9 @@ class CreateBouncerTables extends Migration
                 ->onDelete('cascade');
         });
 
-        Schema::create(Models::table('permissions'), function (Blueprint $table) {
+        Schema::create(Models::table('permissions'), function (
+            Blueprint $table
+        ) {
             $table->bigIncrements('id');
             $table
                 ->bigInteger('ability_id')
@@ -95,7 +103,10 @@ class CreateBouncerTables extends Migration
                 ->nullable()
                 ->index();
 
-            $table->index(['entity_id', 'entity_type', 'scope'], 'permissions_entity_index');
+            $table->index(
+                ['entity_id', 'entity_type', 'scope'],
+                'permissions_entity_index'
+            );
 
             $table
                 ->foreign('ability_id')

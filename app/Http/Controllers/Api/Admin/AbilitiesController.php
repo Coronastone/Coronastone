@@ -6,14 +6,14 @@ use App\Http\Controllers\Controller;
 use Bouncer;
 use Illuminate\Http\Request;
 
-class RolesController extends Controller
+class AbilitiesController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('can:read-roles');
-        $this->middleware('can:create-roles')->only('store');
-        $this->middleware('can:update-roles')->only('update');
-        $this->middleware('can:delete-roles')->only('destroy');
+        $this->middleware('can:read-abilities');
+        $this->middleware('can:create-abilities')->only('store');
+        $this->middleware('can:update-abilities')->only('update');
+        $this->middleware('can:delete-abilities')->only('destroy');
     }
 
     /**
@@ -23,11 +23,7 @@ class RolesController extends Controller
      */
     public function index(Request $request)
     {
-        $model = Bouncer::role();
-
-        if ($request->user()->can('read-abilities')) {
-            $model = $model->with('abilities');
-        }
+        $model = Bouncer::ability();
 
         $q = $request->get('q');
         if ($q) {
@@ -56,7 +52,7 @@ class RolesController extends Controller
             'title' => 'required|string|max:255',
         ]);
 
-        return Bouncer::role()->create([
+        return Bouncer::ability()->create([
             'name' => $request->input('name'),
             'title' => $request->input('title'),
         ]);
@@ -70,13 +66,7 @@ class RolesController extends Controller
      */
     public function show($id)
     {
-        $model = Bouncer::role();
-
-        if ($request->user()->can('read-abilities')) {
-            $model = $model->with('abilities');
-        }
-
-        return $model->findOrFail($id);
+        return Bouncer::ability()->findOrFail($id);
     }
 
     /**
@@ -91,35 +81,19 @@ class RolesController extends Controller
         $request->validate([
             'name' => 'string|max:255|nullable',
             'title' => 'string|max:255|nullable',
-            'abilities' => 'array|nullable',
         ]);
 
-        $role = Bouncer::role()->findOrFail($id);
+        $ability = Bouncer::ability()->findOrFail($id);
 
-        if ($request->has('name')) {
-            $role->name = $request->input('name');
+        if (!$ability->built_in && $request->has('name')) {
+            $ability->name = $request->input('name');
         }
 
         if ($request->has('title')) {
-            $role->title = $request->input('title');
+            $ability->title = $request->input('title');
         }
 
-        if (
-            $request->user()->can('read-abilities') &&
-            $request->has('abilities')
-        ) {
-            $abilities = collect($request->input('abilities'));
-
-            if ($role->name !== 'admin') {
-                Bouncer::sync($role)->abilities(
-                    $abilities->map(function ($ability) {
-                        return $ability['name'];
-                    })
-                );
-            }
-        }
-
-        $role->save();
+        $ability->save();
     }
 
     /**
@@ -130,12 +104,12 @@ class RolesController extends Controller
      */
     public function destroy($id)
     {
-        $role = Bouncer::role()->findOrFail($id);
+        $ability = Bouncer::ability()->findOrFail($id);
 
-        if ($role->users->count() > 0) {
+        if ($ability->roles->count() > 0 || $ability->built_in) {
             abort(400);
         }
 
-        $role->delete();
+        $ability->delete();
     }
 }

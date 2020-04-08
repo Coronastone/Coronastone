@@ -20,14 +20,8 @@ Route::namespace('Api')->group(function () {
         ->namespace('Admin')
         ->middleware(['auth:api', 'can:view-dashboard'])
         ->group(function () {
-            Route::get('abilities', 'RolesController@abilities');
-            Route::resource('roles', 'RolesController')->except([
-                'create',
-                'edit',
-            ]);
-            Route::resource('users', 'UsersController')->except([
-                'create',
-                'edit',
-            ]);
+            Route::resource('abilities', 'AbilitiesController')->except(['create', 'edit']);
+            Route::resource('roles', 'RolesController')->except(['create', 'edit']);
+            Route::resource('users', 'UsersController')->except(['create', 'edit']);
         });
 });

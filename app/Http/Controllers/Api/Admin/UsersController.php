@@ -25,7 +25,11 @@ class UsersController extends Controller
      */
     public function index(Request $request)
     {
-        $model = User::with('roles');
+        $model = User::query();
+
+        if ($request->user()->can('read-roles')) {
+            $model = User::with('roles');
+        }
 
         $q = $request->input('q');
         if ($q) {
@@ -73,7 +77,11 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        return User::with('roles')->findOrFail($id);
+        if ($request->user()->can('read-roles')) {
+            return User::with('roles')->findOrFail($id);
+        } else {
+            return User::findOrFail($id);
+        }
     }
 
     /**
@@ -101,7 +109,7 @@ class UsersController extends Controller
             $user->name = Hash::make($request->input('password'));
         }
 
-        if ($request->has('roles')) {
+        if ($request->user()->can('read-roles') && $request->has('roles')) {
             $roles = collect($request->input('roles'));
 
             if ($id !== $request->user()->id) {

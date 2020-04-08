@@ -24,6 +24,11 @@ class RolesSeeder extends Seeder
         Bouncer::allow('admin')->to('view-dashboard');
         Bouncer::allow('admin')->to('view-telescope');
 
+        Bouncer::allow('admin')->to('read-abilities');
+        Bouncer::allow('admin')->to('create-abilities');
+        Bouncer::allow('admin')->to('update-abilities');
+        Bouncer::allow('admin')->to('delete-abilities');
+
         Bouncer::allow('admin')->to('read-roles');
         Bouncer::allow('admin')->to('create-roles');
         Bouncer::allow('admin')->to('update-roles');
