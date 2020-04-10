@@ -13,9 +13,9 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::any('guard', 'HomeController@guard');
-
 Route::namespace('Api')->group(function () {
+    Route::any('guard', 'HomeController@guard')->middleware('auth:api');
+
     Route::prefix('admin')
         ->namespace('Admin')
         ->middleware(['auth:api', 'can:view-dashboard'])
