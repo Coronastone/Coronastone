@@ -28,7 +28,7 @@ class UsersController extends Controller
         $model = User::query();
 
         if ($request->user()->can('read-roles')) {
-            $model = User::with('roles');
+            $model = $model->with('roles');
         }
 
         $q = $request->input('q');
