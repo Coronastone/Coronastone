@@ -79,8 +79,8 @@ class AbilitiesController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'string|max:255|nullable',
-            'title' => 'string|max:255|nullable',
+            'name' => 'nullable|string|max:255',
+            'title' => 'nullable|string|max:255',
         ]);
 
         $ability = Bouncer::ability()->findOrFail($id);

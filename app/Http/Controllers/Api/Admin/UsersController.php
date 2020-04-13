@@ -94,9 +94,9 @@ class UsersController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'string|max:255|nullable',
-            'password' => 'string|min:8|nullable',
-            'roles' => 'array|nullable',
+            'name' => 'nullable|string|max:255',
+            'password' => 'nullable|string|min:8',
+            'roles' => 'nullable|array',
         ]);
 
         $user = User::findOrFail($id);

@@ -89,9 +89,9 @@ class RolesController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'string|max:255|nullable',
-            'title' => 'string|max:255|nullable',
-            'abilities' => 'array|nullable',
+            'name' => 'nullable|string|max:255',
+            'title' => 'nullable|string|max:255',
+            'abilities' => 'nullable|array',
         ]);
 
         $role = Bouncer::role()->findOrFail($id);
