@@ -94,7 +94,7 @@ class UsersController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'nullable|string|max:255|unique:users',
+            'name' => 'nullable|string|max:255',
             'password' => 'nullable|string|min:8',
             'roles' => 'nullable|array',
         ]);
@@ -102,6 +102,26 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
 
         if ($request->has('name')) {
+            if (
+                User::where('id', '<>', $id)
+                    ->where('name', $request->input('name'))
+                    ->count() > 0
+            ) {
+                return response(
+                    [
+                        'message' => 'The given data was invalid.',
+                        'errors' => [
+                            'name' => [
+                                __('validation.unique', [
+                                    'attribute' => 'name',
+                                ]),
+                            ],
+                        ],
+                    ],
+                    422
+                );
+            }
+
             $user->name = $request->input('name');
         }
 
