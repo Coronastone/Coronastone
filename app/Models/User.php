@@ -42,4 +42,15 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = ['password', 'email', 'phone_number', 'remember_token'];
+
+    /**
+     * Find the user instance for the given username.
+     *
+     * @param  string  $username
+     * @return \App\User
+     */
+    public function findForPassport($username)
+    {
+        return $this->where('username', $username)->first();
+    }
 }
