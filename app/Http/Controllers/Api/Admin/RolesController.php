@@ -29,7 +29,7 @@ class RolesController extends Controller
             $model = $model->with('abilities');
         }
 
-        $q = $request->get('q');
+        $q = $request->input('q');
         if ($q) {
             $model = $model
                 ->where('name', 'like', "%$q%")
