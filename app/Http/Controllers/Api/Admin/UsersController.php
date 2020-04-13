@@ -136,7 +136,7 @@ class UsersController extends Controller
             abort(400);
         }
 
-        if ($request->input('destroy') == true) {
+        if ($request->input('destroy') === 'true') {
             $user = User::withTrashed()->findOrFail($id);
 
             $user->forceDelete();
