@@ -36,6 +36,8 @@ Create the encryption keys and sample clients:
 $ php artisan passport:install
 ```
 
+To enable `sms` grant type, uncomment codes in `AuthServiceProvider` and `User` model.
+
 #### Socialite
 
 For more providers, see [Socialite Providers](https://socialiteproviders.netlify.com).

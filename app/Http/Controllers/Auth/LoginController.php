@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -36,6 +38,22 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    /**
+     * Send dynamic codes to user.
+     *
+     * @return void
+     */
+    public function code(Request $request)
+    {
+        $phone_number = $request->input('phone_number');
+
+        $user = User::where('phone_number', $phone_number)->firstOrFail();
+
+        // TODO: Send code via SMS.
+
+        throw new \Exception('Not Implemented.');
     }
 
     /**

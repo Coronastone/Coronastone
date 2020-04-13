@@ -11,7 +11,11 @@
 |
 */
 
-Auth::routes();
+Route::group(['prefix' => 'auth'], function () {
+    Auth::routes();
+
+    Route::post('/code', 'Auth\LoginController@code');
+});
 
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@home')->name('home');
