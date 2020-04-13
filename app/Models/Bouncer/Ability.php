@@ -13,13 +13,4 @@ class Ability extends \Silber\Bouncer\Database\Ability
         'scope',
         'options',
     ];
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            $model->built_in = false;
-        });
-    }
 }

@@ -55,6 +55,7 @@ class AbilitiesController extends Controller
         return Bouncer::ability()->create([
             'name' => $request->input('name'),
             'title' => $request->input('title'),
+            'built_in' => false,
         ]);
     }
 
