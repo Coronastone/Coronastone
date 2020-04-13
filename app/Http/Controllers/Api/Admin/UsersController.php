@@ -12,10 +12,10 @@ class UsersController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('can:read-users');
-        $this->middleware('can:create-users')->only('store');
-        $this->middleware('can:update-users')->only('update');
-        $this->middleware('can:delete-users')->only('destroy');
+        $this->middleware('can:read,App\Models\User');
+        $this->middleware('can:create,App\Models\User')->only('store');
+        $this->middleware('can:update,App\Models\User')->only('update');
+        $this->middleware('can:delete,App\Models\User')->only('destroy');
     }
 
     /**

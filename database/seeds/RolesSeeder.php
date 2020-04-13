@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Bouncer\Ability;
+use App\Models\Bouncer\Role;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Silber\Bouncer\BouncerFacade as Bouncer;
 
@@ -24,19 +27,19 @@ class RolesSeeder extends Seeder
         Bouncer::allow('admin')->to('view-dashboard');
         Bouncer::allow('admin')->to('view-telescope');
 
-        Bouncer::allow('admin')->to('read-abilities');
-        Bouncer::allow('admin')->to('create-abilities');
-        Bouncer::allow('admin')->to('update-abilities');
-        Bouncer::allow('admin')->to('delete-abilities');
+        Bouncer::allow('admin')->to('read', Ability::class);
+        Bouncer::allow('admin')->to('create', Ability::class);
+        Bouncer::allow('admin')->to('update', Ability::class);
+        Bouncer::allow('admin')->to('delete', Ability::class);
 
-        Bouncer::allow('admin')->to('read-roles');
-        Bouncer::allow('admin')->to('create-roles');
-        Bouncer::allow('admin')->to('update-roles');
-        Bouncer::allow('admin')->to('delete-roles');
+        Bouncer::allow('admin')->to('read', Role::class);
+        Bouncer::allow('admin')->to('create', Role::class);
+        Bouncer::allow('admin')->to('update', Role::class);
+        Bouncer::allow('admin')->to('delete', Role::class);
 
-        Bouncer::allow('admin')->to('read-users');
-        Bouncer::allow('admin')->to('create-users');
-        Bouncer::allow('admin')->to('update-users');
-        Bouncer::allow('admin')->to('delete-users');
+        Bouncer::allow('admin')->to('read', User::class);
+        Bouncer::allow('admin')->to('create', User::class);
+        Bouncer::allow('admin')->to('update', User::class);
+        Bouncer::allow('admin')->to('delete', User::class);
     }
 }

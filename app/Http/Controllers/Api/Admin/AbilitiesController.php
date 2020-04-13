@@ -10,10 +10,10 @@ class AbilitiesController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('can:read-abilities');
-        $this->middleware('can:create-abilities')->only('store');
-        $this->middleware('can:update-abilities')->only('update');
-        $this->middleware('can:delete-abilities')->only('destroy');
+        $this->middleware('can:read,App\Models\Bouncer\Ability');
+        $this->middleware('can:create,App\Models\Bouncer\Ability')->only('store');
+        $this->middleware('can:update,App\Models\Bouncer\Ability')->only('update');
+        $this->middleware('can:delete,App\Models\Bouncer\Ability')->only('destroy');
     }
 
     /**

@@ -10,10 +10,10 @@ class RolesController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('can:read-roles');
-        $this->middleware('can:create-roles')->only('store');
-        $this->middleware('can:update-roles')->only('update');
-        $this->middleware('can:delete-roles')->only('destroy');
+        $this->middleware('can:read,App\Models\Bouncer\Role');
+        $this->middleware('can:create,App\Models\Bouncer\Role')->only('store');
+        $this->middleware('can:update,App\Models\Bouncer\Role')->only('update');
+        $this->middleware('can:delete,App\Models\Bouncer\Role')->only('destroy');
     }
 
     /**
