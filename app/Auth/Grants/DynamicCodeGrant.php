@@ -140,6 +140,22 @@ class DynamicCodeGrant extends AbstractGrant
         $user = (new $model())->where('phone_number', $phone_number)->first();
 
         if (is_null($user)) {
+            if (!env('OAUTH_CREATE_USER', false)) {
+                return;
+            }
+
+            $user = (new $model())->create([
+                'name' => preg_replace(
+                    '/^(1[3-9]\d)\d{4}(\d{4})$/',
+                    '$1****$2',
+                    $phone_number
+                ),
+                'username' => $phone_number,
+                'phone_number' => $phone_number,
+                'phone_number_verified_at' => now(),
+                'password' => bin2hex(openssl_random_pseudo_bytes(13)),
+            ]);
+
             if (is_null($user)) {
                 return;
             }

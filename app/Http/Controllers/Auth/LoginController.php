@@ -49,7 +49,21 @@ class LoginController extends Controller
     {
         $phone_number = $request->input('phone_number');
 
-        $user = User::where('phone_number', $phone_number)->firstOrFail();
+        // try {
+        //     if (function_exists('random_int')) {
+        //         $code = random_int(100000, 999999);
+        //     } else {
+        //         $code = mt_rand(100000, 999999);
+        //     }
+
+        //     Cache::put(
+        //         'passport_dynamic_code_' . $this->phone_number,
+        //         $code,
+        //         now()->addMinutes(5)
+        //     );
+        // } catch (\Exception $e) {
+        //     throw new \Exception('Code generation failed', 0, $e);
+        // }
 
         // TODO: Send code via SMS.
 

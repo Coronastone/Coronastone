@@ -34,7 +34,9 @@ class User extends Authenticatable
         'username',
         'password',
         'email',
+        'email_verified_at',
         'phone_number',
+        'phone_number_verified_at',
     ];
 
     /**
@@ -63,6 +65,10 @@ class User extends Authenticatable
      */
     // public function checkCodeForPassport($code)
     // {
+    //     if (!$this->phone_number_verified_at) {
+    //         return false;
+    //     }
+
     //     $key = 'passport_dynamic_code_' . $this->phone_number;
 
     //     $value = Cache::get($key);
@@ -74,31 +80,5 @@ class User extends Authenticatable
     //     }
 
     //     return false;
-    // }
-
-    /**
-     * Generate the dynamic codes for the user.
-     *
-     * @return string
-     */
-    // public function generateCodeForPassport()
-    // {
-    //     try {
-    //         if (function_exists('random_int')) {
-    //             $code = random_int(100000, 999999);
-    //         } else {
-    //             $code = mt_rand(100000, 999999);
-    //         }
-
-    //         Cache::put(
-    //             'passport_dynamic_code_' . $this->phone_number,
-    //             $code,
-    //             now()->addMinutes(5)
-    //         );
-    //     } catch (\Exception $e) {
-    //         throw new \Exception('Code generation failed', 0, $e);
-    //     }
-
-    //     return $code;
     // }
 }
