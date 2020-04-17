@@ -5,6 +5,7 @@ Coronastone is a scaffold based on the Laravel Framework.
 ### Features
 
 -   Login / Register
+    -   Social Logins
 -   Admin Dashboard
     -   Users management
     -   Roles management

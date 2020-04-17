@@ -14,7 +14,9 @@
 Route::group(['prefix' => 'auth'], function () {
     Auth::routes();
 
-    Route::post('/code', 'Auth\LoginController@code');
+    Route::post('/code', 'Auth\ExternalController@code');
+    Route::get('/external/{provider}', 'Auth\ExternalController@redirect')->name('auth.external');
+    Route::get('/callback/{provider}', 'Auth\ExternalController@callback')->name('auth.callback');
 });
 
 Route::get('/', 'HomeController@index');

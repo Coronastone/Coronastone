@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Auth\Grants\DynamicCodeGrant;
+use App\Auth\Grants\ExternalCodeGrant;
 use App\Models\Bouncer\Ability;
 use App\Models\Bouncer\Role;
 use App\Models\Passport\Client;
@@ -42,6 +43,12 @@ class AuthServiceProvider extends ServiceProvider
         //     Passport::tokensExpireIn()
         // );
 
+        // Enable socialite grant type
+        // app(AuthorizationServer::class)->enableGrantType(
+        //     $this->makeExternalCodeGrant(),
+        //     Passport::tokensExpireIn()
+        // );
+
         Passport::routes();
         Passport::enableImplicitGrant();
         Passport::useClientModel(Client::class);
@@ -57,6 +64,22 @@ class AuthServiceProvider extends ServiceProvider
     protected function makeDynamicCodeGrant()
     {
         $grant = new DynamicCodeGrant(
+            $this->app->make(RefreshTokenRepository::class)
+        );
+
+        $grant->setRefreshTokenTTL(Passport::refreshTokensExpireIn());
+
+        return $grant;
+    }
+
+    /**
+     * Create and configure a Dynamic Code grant instance.
+     *
+     * @return ExternalCodeGrant
+     */
+    protected function makeExternalCodeGrant()
+    {
+        $grant = new ExternalCodeGrant(
             $this->app->make(RefreshTokenRepository::class)
         );
 

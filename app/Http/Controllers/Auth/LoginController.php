@@ -41,33 +41,17 @@ class LoginController extends Controller
     }
 
     /**
-     * Send dynamic codes to user.
+     * Show the application's login form.
      *
-     * @return void
+     * @return \Illuminate\Http\Response
      */
-    public function code(Request $request)
+    public function showLoginForm()
     {
-        $phone_number = $request->input('phone_number');
-
-        // try {
-        //     if (function_exists('random_int')) {
-        //         $code = random_int(100000, 999999);
-        //     } else {
-        //         $code = mt_rand(100000, 999999);
-        //     }
-
-        //     Cache::put(
-        //         'passport_dynamic_code_' . $this->phone_number,
-        //         $code,
-        //         now()->addMinutes(5)
-        //     );
-        // } catch (\Exception $e) {
-        //     throw new \Exception('Code generation failed', 0, $e);
-        // }
-
-        // TODO: Send code via SMS.
-
-        throw new \Exception('Not Implemented.');
+        return view('auth.login', [
+            'providers' => collect(config('services'))->filter(function ($s) {
+                return array_key_exists('display_name', $s);
+            }),
+        ]);
     }
 
     /**

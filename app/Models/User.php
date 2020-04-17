@@ -46,6 +46,58 @@ class User extends Authenticatable
      */
     protected $hidden = ['password', 'email', 'phone_number', 'remember_token'];
 
+    public function logins()
+    {
+        return $this->hasMany(Login::class);
+    }
+
+    /**
+     * Find the user instance for the given login.
+     *
+     * @param  string  $provider
+     * @param  string  $id
+     * @return \App\User
+     */
+    public function findByLogin($provider, $id)
+    {
+        $login = Login::where('provider', $provider)
+            ->where('token', $id)
+            ->first();
+
+        if ($login) {
+            return $login->user;
+        }
+
+        return null;
+    }
+
+    /**
+     * Create for Login
+     *
+     * @param  string  $provider
+     * @param  string  $id
+     * @return \App\User
+     */
+    public function createForLogin($provider, $id)
+    {
+        $now = now();
+        $username = "$provider{$now->timestamp}$id";
+
+        $user = static::create([
+            'name' => $username,
+            'username' => $username,
+            'password' => bin2hex(openssl_random_pseudo_bytes(13)),
+        ]);
+
+        Login::create([
+            'user_id' => $user->id,
+            'provider' => $provider,
+            'token' => $id,
+        ]);
+
+        return $user;
+    }
+
     /**
      * Find the user instance for the given username.
      *

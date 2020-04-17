@@ -2,8 +2,10 @@
 
 namespace App\Auth\Grants;
 
+use App\Models\Login;
 use Illuminate\Http\Request;
 use Laravel\Passport\Bridge\User;
+use Laravel\Socialite\Facades\Socialite;
 use League\OAuth2\Server\Entities\ClientEntityInterface;
 use League\OAuth2\Server\Entities\UserEntityInterface;
 use League\OAuth2\Server\Exception\OAuthServerException;
@@ -14,7 +16,7 @@ use League\OAuth2\Server\ResponseTypes\ResponseTypeInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use RuntimeException;
 
-class DynamicCodeGrant extends AbstractGrant
+class ExternalCodeGrant extends AbstractGrant
 {
     /**
      * @param RefreshTokenRepositoryInterface $refreshTokenRepository
@@ -76,9 +78,9 @@ class DynamicCodeGrant extends AbstractGrant
         ServerRequestInterface $request,
         ClientEntityInterface $client
     ) {
-        $phone_number = $this->getRequestParameter('phone_number', $request);
-        if (is_null($phone_number)) {
-            throw OAuthServerException::invalidRequest('phone_number');
+        $socialite = $this->getRequestParameter('provider', $request);
+        if (is_null($socialite)) {
+            throw OAuthServerException::invalidRequest('provider');
         }
 
         $code = $this->getRequestParameter('code', $request);
@@ -86,8 +88,8 @@ class DynamicCodeGrant extends AbstractGrant
             throw OAuthServerException::invalidRequest('code');
         }
 
-        $user = $this->getUserEntityByPhoneNumber(
-            $phone_number,
+        $user = $this->getUserEntityByCode(
+            $socialite,
             $code,
             $this->getIdentifier(),
             $client
@@ -110,7 +112,7 @@ class DynamicCodeGrant extends AbstractGrant
     /**
      *  Retrieve a user by the given phone number.
      *
-     * @param string  $phone_number
+     * @param string  $socialite
      * @param string  $code
      * @param string  $grantType
      * @param \League\OAuth2\Server\Entities\ClientEntityInterface  $clientEntity
@@ -118,12 +120,17 @@ class DynamicCodeGrant extends AbstractGrant
      * @return \Laravel\Passport\Bridge\User|null
      * @throws \League\OAuth2\Server\Exception\OAuthServerException
      */
-    private function getUserEntityByPhoneNumber(
-        $phone_number,
+    private function getUserEntityByCode(
+        $socialite,
         $code,
         $grantType,
         ClientEntityInterface $clientEntity
     ) {
+        $info = Socialite::driver($socialite)
+            ->redirectUrl(env('EXTERNAL_STATELESS_REDIRECT'))
+            ->stateless()
+            ->user();
+
         $provider = config('auth.guards.api.provider');
 
         if (
@@ -134,36 +141,26 @@ class DynamicCodeGrant extends AbstractGrant
             );
         }
 
-        if (!method_exists($model, 'checkCodeForPassport')) {
+        if (!method_exists($model, 'findByLogin')) {
             throw OAuthServerException::invalidCredentials();
         }
 
-        $user = (new $model())->where('phone_number', $phone_number)->first();
+        if (!method_exists($model, 'createForLogin')) {
+            throw OAuthServerException::invalidCredentials();
+        }
+
+        $user = (new $model())->findByLogin($socialite, $info->getId());
 
         if (is_null($user)) {
             if (!env('OAUTH_CREATE_USER', false)) {
                 return;
             }
 
-            $user = (new $model())->create([
-                'name' => preg_replace(
-                    '/^(1[3-9]\d)\d{4}(\d{4})$/',
-                    '$1****$2',
-                    $phone_number
-                ),
-                'username' => $phone_number,
-                'phone_number' => $phone_number,
-                'phone_number_verified_at' => now(),
-                'password' => bin2hex(openssl_random_pseudo_bytes(13)),
-            ]);
+            $user = (new $model())->createForLogin($socialite, $info->getId());
 
             if (is_null($user)) {
                 return;
             }
-        }
-
-        if (!$user->checkCodeForPassport($code)) {
-            return;
         }
 
         return new User($user->getAuthIdentifier());
@@ -174,6 +171,6 @@ class DynamicCodeGrant extends AbstractGrant
      */
     public function getIdentifier()
     {
-        return 'sms';
+        return 'socialite';
     }
 }

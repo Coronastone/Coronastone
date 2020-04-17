@@ -68,6 +68,18 @@
                 </div>
             </div>
         </div>
+
+        @if (count($providers) > 0)
+            <div class="col-md-8 mt-3">
+                <div class="card">
+                    <div class="card-body">
+                        @foreach($providers as $key => $provider)
+                            <a href="{{ route('auth.external', ['provider' => $key]) }}" class="btn btn-outline-primary">{{ $provider['display_name'] }}</a>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
 </div>
 @endsection
